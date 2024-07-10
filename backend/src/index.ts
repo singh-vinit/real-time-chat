@@ -44,7 +44,7 @@ wss.on("connection", function connection(ws) {
           ws.send(
             JSON.stringify({
               action: "info",
-              success: false,
+              success: true,
               message: "Created And Joined The Room!",
             })
           );
