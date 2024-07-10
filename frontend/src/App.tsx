@@ -1,30 +1,27 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { ChatRoom } from "./pages/ChatRoom";
+import { useState, useEffect } from "react";
 
 function App() {
   const [ws, setWs] = useState<WebSocket | null>(null);
-  const [received, setReceived] = useState("");
-  const [message, setMessage] = useState("");
-
-  function handler() {
-    ws?.send(message);
-  }
-
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8080");
+    const socket = new WebSocket("ws://localhost:4000");
     socket.onopen = () => {
-      console.log("connection successful!");
+      console.log("connection successful");
       setWs(socket);
+      console.log(ws)
     };
-    socket.onmessage = (event) => {
-      setReceived(event.data);
-    };
-  }, []);
+  });
 
   return (
     <div>
-      <input type="text" onChange={(e) => setMessage(e.target.value)} />
-      <button onClick={handler}>send</button>
-      <div>{received}</div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home socket={ws} />} />
+          <Route path="room/:id" element={<ChatRoom />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
