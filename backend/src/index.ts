@@ -74,12 +74,13 @@ wss.on("connection", function connection(ws) {
         break;
 
       case "message":
-        const clients = rooms[data.roomId].filter((client) => client.ws != ws);
-        clients.forEach((client, ind) => {
+        const clients = rooms[data.roomId];
+        const currentClient = clients.filter((client) => client.ws === ws);
+        clients.forEach((client) => {
           client.ws.send(
             JSON.stringify({
               action: "message",
-              username: data.username,
+              username: currentClient[0].username,
               message: data.message,
             })
           );
