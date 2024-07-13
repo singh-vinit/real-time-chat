@@ -22,6 +22,7 @@ export function Home({ socket }: { socket: WebSocket | null }) {
   function joinHandler() {
     const data = JSON.stringify({ action: "join", username, roomId });
     socket?.send(data);
+    console.log("join room")
     response();
   }
 
@@ -46,43 +47,40 @@ export function Home({ socket }: { socket: WebSocket | null }) {
         chat room
       </div>
       <div className="flex justify-center">
-        <div className="border p-5 rounded-md ring-1 ring-blue-400">
-          {!socket ? <div>connecting...</div> : null}
+        <div className="border p-5 rounded-md ring-1 ring-rose-400">
           <div className="flex gap-x-10 p-2">
-            <label htmlFor="username" className="text-xl font-medium">
+            <label htmlFor="username" className="text-xl font-medium uppercase">
               username
             </label>
             <input
               id="username"
               type="text"
               placeholder="#legendsx"
-              className="border border-gray-600 rounded p-1 focus:outline-blue-500"
+              className="border border-gray-600 rounded p-1 focus:outline-rose-500"
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="flex gap-x-14 p-2">
-            <label htmlFor="room" className="text-xl font-medium">
+            <label htmlFor="room" className="text-xl font-medium uppercase">
               room id
             </label>
             <input
               id="room"
               type="text"
               placeholder="#4456"
-              className="border border-gray-600 rounded p-1 focus:outline-blue-500"
+              className="border border-gray-600 rounded p-1 focus:outline-rose-500"
               onChange={(e) => setRoomId(e.target.value)}
             />
           </div>
           <div className="flex gap-x-5 mt-4">
             <button
-              type="button"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className="bg-rose-500 font-medium text-white rounded-md py-2 px-3 hover:scale-95"
               onClick={createHandler}
             >
               create
             </button>
             <button
-              type="button"
-              className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+              className="bg-rose-500 font-medium text-white rounded-md py-2 px-3 hover:scale-95"
               onClick={joinHandler}
             >
               join

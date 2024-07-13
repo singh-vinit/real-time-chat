@@ -10,7 +10,6 @@ function App() {
     socket.onopen = () => {
       console.log("connection successful");
       setWs(socket);
-      console.log(ws)
     };
   });
 
@@ -19,7 +18,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home socket={ws} />} />
-          <Route path="room/:id" element={<ChatRoom />} />
+          <Route path="room/:id" element={<ChatRoom socket={ws} />} />
         </Routes>
       </BrowserRouter>
     </div>
